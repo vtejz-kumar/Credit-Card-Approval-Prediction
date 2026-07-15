@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Result — Credit Card Approval Predictor{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <h1>Prediction Result</h1>
+  <p>Based on the information you provided, here is our assessment.</p>
+</section>
+
+<div class="result-container">
+  <div class="result-card {{ 'approved' if result.approved else 'declined' }}">
+    <div class="result-status">
+      {% if result.approved %}
+        <span class="status-icon approved-icon">✓</span>
+        <h2>Approved</h2>
+        <p class="status-message">Congratulations! Your application is likely to be approved.</p>
+      {% else %}
+        <span class="status-icon declined-icon">✕</span>
+        <h2>Declined</h2>
+        <p class="status-message">Based on current criteria, approval is unlikely at this time.</p>
+      {% endif %}
+    </div>
+
+    <div class="result-metrics">
+      <div class="metric">
+        <span class="metric-label">Risk Score</span>
+        <span class="metric-value">{{ result.score }}<small>/100</small></span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Confidence</span>
+        <span class="metric-value">{{ result.confidence }}<small>%</small></span>
+      </div>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-bar-fill" style="width: {{ result.score }}%"></div>
+      <div class="score-threshold" style="left: 55%"></div>
+    </div>
+    <p class="score-legend">Approval threshold: 55/100</p>
+  </div>
+
+  <div class="result-details">
+    <h3>Analysis Breakdown</h3>
+    <ul class="reasons-list">
+      {% for reason in result.reasons %}
+        <li>{{ reason }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="result-details">
+    <h3>Submitted Information</h3>
+    <dl class="summary-grid">
+      <dt>Age</dt>
+      <dd>{{ form_data.age }}</dd>
+      <dt>Employment</dt>
+      <dd>{{ form_data.employment_status }}</dd>
+      <dt>Years Employed</dt>
+      <dd>{{ form_data.years_employed }}</dd>
+      <dt>Annual Income</dt>
+      <dd>${{ "{:,.0f}".format(form_data.annual_income) }}</dd>
+      <dt>Existing Debt</dt>
+      <dd>${{ "{:,.0f}".format(form_data.existing_debt) }}</dd>
+      <dt>Requested Limit</dt>
+      <dd>${{ "{:,.0f}".format(form_data.loan_amount) }}</dd>
+      <dt>Credit Score</dt>
+      <dd>{{ form_data.credit_score }}</dd>
+      <dt>Credit History</dt>
+      <dd>{{ form_data.credit_history_years }} years</dd>
+      <dt>Credit Cards</dt>
+      <dd>{{ form_data.num_credit_cards }}</dd>
+      <dt>Missed Payments</dt>
+      <dd>{{ form_data.missed_payments }}</dd>
+    </dl>
+  </div>
+
+  <div class="result-actions">
+    <a href="{{ url_for('predict') }}" class="btn btn-primary">Try Another Prediction</a>
+    <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Home — Credit Card Approval Predictor{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <span class="badge">Machine Learning Demo</span>
+    <h1>Credit Card Approval Predictor</h1>
+    <p class="hero-subtitle">
+      An interactive web application that evaluates loan applications and predicts
+      whether a credit card request is likely to be approved or declined.
+    </p>
+    <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">Start Prediction</a>
+  </div>
+  <div class="hero-visual">
+    <div class="card-preview">
+      <div class="card-chip"></div>
+      <div class="card-number">•••• •••• •••• 4242</div>
+      <div class="card-footer">
+        <span>APPLICANT</span>
+        <span>VALID THRU</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <h2>How It Works</h2>
+  <div class="feature-grid">
+    <article class="feature-card">
+      <div class="feature-icon">1</div>
+      <h3>Enter Your Details</h3>
+      <p>Fill in financial and personal information such as income, credit score, employment status, and debt.</p>
+    </article>
+    <article class="feature-card">
+      <div class="feature-icon">2</div>
+      <h3>Instant Analysis</h3>
+      <p>Our scoring model weighs multiple risk factors to compute an approval probability in real time.</p>
+    </article>
+    <article class="feature-card">
+      <div class="feature-icon">3</div>
+      <h3>View Results</h3>
+      <p>See a clear approved or declined decision with confidence level and detailed reasoning.</p>
+    </article>
+  </div>
+</section>
+
+<section class="info-section">
+  <h2>Factors We Consider</h2>
+  <ul class="factor-list">
+    <li><strong>Credit Score</strong> — Primary indicator of creditworthiness (300–850)</li>
+    <li><strong>Annual Income</strong> — Ability to repay outstanding balances</li>
+    <li><strong>Debt-to-Income Ratio</strong> — Existing debt relative to earnings</li>
+    <li><strong>Employment Status</strong> — Job stability and income reliability</li>
+    <li><strong>Credit History</strong> — Length of credit and payment track record</li>
+    <li><strong>Requested Limit</strong> — Credit amount relative to income</li>
+  </ul>
+</section>
+{% endblock %}
